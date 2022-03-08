@@ -19,30 +19,31 @@ int main()
   {
     case(1):
     {
+      system("cls");
       login();
-
       break;
     }
     case(2):
     {
+      system("cls");
       registerAccount();
       break;
     }
     case(3):
     {
+      system("cls");
       forgotPassword();
-
       break;
     }
     case(4):
     {
+      system("cls");
       cout << "Thank you!" << endl;
-
       break;
     }
     default:
     {
-
+      system("cls");
       cout << "You have entered a wrong choice" << endl;
       main();
     }
@@ -52,21 +53,22 @@ int main()
 void registerAccount()
 {
   int counterID = 0;
-  int c = 0;
+  int c;
   int counterPass = 0;
   int cSpecial, cNumeric, cLargeAlphabet, cSmallAlphabet;
   string user, pswd, userID, password;
   ifstream input;
   input.open("resource.txt");
-  fstream temp;
-  temp.open("tempResource.txt");
+  std::fstream output("resource.txt", std::ios::in | std::ios::out | std::ios::app);
+
   cout << "Welcome, please enter the following information to register your account" << endl;
-  do
+  while(counterID == 0)
   {
     cout << "Enter username" << endl;
     cin >> user;
-    while(!input.eof() && c == 0 && counterID == 0)
-    {
+     c = 0;
+     while(!input.eof() && c == 0)
+     {
         input >> userID >> password;
         if (user == userID)
         {
@@ -74,14 +76,16 @@ void registerAccount()
           c = 1;
           user = "";
         }
-        else
-        {
-            counterID = 1;
-        }
-    }
+      }
+      if(c == 0)
+      {
+        counterID = 1;
+      }
+    input.close();
+    input.open("resource.txt");
 
   }
-  while(counterID == 0);
+
 
   while (counterPass == 0)
   {
@@ -111,35 +115,23 @@ void registerAccount()
 
         if (cSpecial == 1 && cNumeric == 1 && cLargeAlphabet == 1 && cSmallAlphabet == 1)
         {
-          cout << user << " your account has been successfully created" << endl;
           counterPass = 1;
 
           if(counterID == 1 && counterPass == 1)
             {
-              string tempLine;
-              input.close();
-              input.open("resource.txt");
-              while(!input.eof())
-              {
-                getline(input, tempLine);
-                if(tempLine != "")
-                {
-                    temp << tempLine << endl;
-                }
-              }
-              temp << user << " " << pswd << endl;
+              output << user << " " << pswd << endl;
+              system("cls");
+              cout << user << " your account has been successfully created" << endl << endl;
             }
         }
         else
         {
+            system("cls");
             cout << "Error! Your password must have atleast one lower alphabet and one upper alphabet";
             cout << "one numeric and one special character and no spaces" << endl;
         }
   }
       input.close();
-      temp.close();
-      remove("resource.txt");
-      rename("tempResource.txt", "resource.txt");
       main();
 }
 
@@ -164,10 +156,12 @@ void login()
     input.close();
     if (count == 1)
     {
+        system("cls");
         cout << user << " you have successfully logged in" << endl;
     }
     else
     {
+      system("cls");
       cout << "You have either entered a wrong username or password" << endl;
       main();
     }
@@ -185,6 +179,10 @@ void forgotPassword()
   cin >> user;
   while(counterPass == 0)
   {
+    cSpecial = 0;
+    cNumeric = 0;
+    cLargeAlphabet = 0;
+    cSmallAlphabet = 0;
     cout << "Enter a new password" << endl;
     cin >> pswd;
     for(unsigned int i = 0; i < pswd.length(); i++)
@@ -215,23 +213,18 @@ void forgotPassword()
     }
     else
     {
-        system("cls");
+      system("cls");
+      cout << "Error! Your password must have atleast one lower alphabet and one upper alphabet" << endl;
+      cout << " one numeric and one special character and no spaces" << endl;
     }
    }
 
-  input.close();
-  input.open("resource.txt");
-
   while(!input.eof())
     {
-     string tempLine;
-     getline(input, tempLine);
+     input >> userID >> password;
      if(user != userID)
      {
-        if(tempLine != "")
-        {
-          temp << tempLine << endl;
-        }
+          temp << userID << " " << password << endl;
      }
      else
      {
