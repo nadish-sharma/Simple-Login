@@ -85,8 +85,6 @@ void registerAccount()
     input.open("resource.txt");
 
   }
-
-
   while (counterPass == 0)
   {
     cout << "Enter password" << endl;
@@ -168,13 +166,12 @@ void login()
 }
 void forgotPassword()
 {
-  string user, pswd, userID, password;
+  string user, pswd, userID, password, tempLine;
   int cSpecial,cNumeric,cLargeAlphabet, cSmallAlphabet;
   ifstream input;
   int counterPass= 0;
   input.open("resource.txt");
-  fstream temp;
-  temp.open("tempResource.txt");
+  ofstream temp("tempResource.txt");
   cout << "Please enter your username" <<endl;
   cin >> user;
   while(counterPass == 0)
@@ -208,6 +205,7 @@ void forgotPassword()
     }
     if (cSpecial == 1 && cNumeric == 1 && cLargeAlphabet == 1 && cSmallAlphabet == 1)
     {
+        system("cls");
         cout << user << " your password has been successfully updated" << endl;
         counterPass = 1;
     }
@@ -217,23 +215,24 @@ void forgotPassword()
       cout << "Error! Your password must have atleast one lower alphabet and one upper alphabet" << endl;
       cout << " one numeric and one special character and no spaces" << endl;
     }
-   }
-
-  while(!input.eof())
-    {
+  }
+  while(true)
+  {
      input >> userID >> password;
+     if(input.eof())
+      break;
      if(user != userID)
      {
           temp << userID << " " << password << endl;
      }
      else
      {
-        temp << user << " " << pswd << endl;
+        temp << userID << " " << pswd << endl;
      }
-    }
-    temp.close();
-    input.close();
-    remove("resource.txt");
-    rename("tempResource.txt", "resource.txt");
-    main();
+  }
+  temp.close();
+  input.close();
+  remove("resource.txt");
+  rename("tempResource.txt", "resource.txt");
+  main();
 }
