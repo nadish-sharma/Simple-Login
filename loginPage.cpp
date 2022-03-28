@@ -9,6 +9,9 @@ void registerAccount();
 void login();
 void forgotPassword();
 
+int cSpecial, cNumeric, cLargeAlphabet, cSmallAlphabet;
+string user, pswd, userID, password;
+
 int main()
 {
   int choice;
@@ -55,8 +58,6 @@ void registerAccount()
   int counterID = 0;
   int c;
   int counterPass = 0;
-  int cSpecial, cNumeric, cLargeAlphabet, cSmallAlphabet;
-  string user, pswd, userID, password;
   ifstream input;
   input.open("resource.txt");
   std::fstream output("resource.txt", std::ios::in | std::ios::out | std::ios::app);
@@ -135,7 +136,6 @@ void registerAccount()
 
 void login()
 {
-  string user, pswd, userID, password;
   int count = 0;
   cout << "Enter your username" << endl;
   cin >> user;
@@ -166,8 +166,6 @@ void login()
 }
 void forgotPassword()
 {
-  string user, pswd, userID, password, tempLine;
-  int cSpecial,cNumeric,cLargeAlphabet, cSmallAlphabet;
   ifstream input;
   int counterPass= 0;
   input.open("resource.txt");
