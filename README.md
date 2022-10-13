@@ -1,6 +1,6 @@
 # Projects
 
-Login Page Project: This is a project to test file handling capabilities.
+Simple-Login Project: This is a project to test file handling capabilities.
 
 The user gets 4 options:
 1. Login
