@@ -8,6 +8,8 @@ The user gets 4 options:
 3. Change password
 4. Exit
 
+* You can use the resource.txt file to see database of existing usernames and passwords to test the Login option. All new registered account information is   stored in resource.txt file.
+
 * Login method will ask the user to enter username and password.
 * It will return a message of successful Login if the credentials match with the existing database in resource.txt
 * Otherwise, it will ask to fill in the details again
